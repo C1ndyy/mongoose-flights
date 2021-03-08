@@ -1,15 +1,25 @@
+// require('../config/database')
 const Flight = require('../models/flight');
 
 function index (req, res) {
-    res.send("Index Page")
+    // let allFlights = Flight.find({});
+    // console.log(allFlights[0])
+    res.render('flights/index',)
 }
 
 function newFlight (req, res) {
     res.render('flights/new')
 }
 
-function create (req, res) {
-    res.send("Thank you for Submitting")
+async function create (req, res) {
+    console.log(req.body)
+    await Flight.create({
+        airline: req.body.airline,
+        airport: req.body.airport,
+        flightNo: req.body.flightNo,
+        depart: req.body.depart,
+    })
+    res.redirect('/flights')
 }
 
 

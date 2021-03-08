@@ -9,38 +9,58 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <nav>
+        <div class="nav-wrapper">
+          <a href="#" class="brand-logo">Mongoose Flights</a>
+          <ul id="nav-mobile" class="right">
+            <li><a href="/flights/new">Add Flight</a></li>
+            <li><a href="/flights/">All Flights</a></li>
+          </ul>
+        </div>
+    </nav>
+    
     <h2>Add a Flight</h2>
     <form action="/flights" method="POST">
     
     
         <div class="row">
             <form action="/flights" method="POST" class="col s12">
-              <div class="row">
-                <div class="input-field col s6">
-                  <input id="airline" type="text" name = "airline" class="validate">
-                  <label for="airline">Airline</label>
+
+                <div class="input-field col s12">
+                    <select name="airline" class="selectAirline">
+                    <option value="" disabled selected>Choose Airline</option>
+                    <option value="American">American</option>
+                    <option value="Southwest">Southwest</option>
+                    <option value="United">United</option>
+                    </select>
+                    <label>Airline</label>
+                  </div>
+
+
+                  <div class="input-field col s12">
+                    <select name ="airport" class="selectAirport">
+                      <option value="DEN">DEN</option>
+                      <option value="AUS">AUS</option>
+                      <option value="DFW">DFW</option>
+                      <option value="LAX">LAX</option>
+                      <option value="SAN">SAN</option>
+                    </select>
+                    <label>Airport</label>
+                  </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="flightNo" type="number" name = "flightNo" class="validate">
+                        <label for="flightNo">Flight No.</label>
+                    </div>
                 </div>
 
-                <div class="input-field col s6">
-                  <input id="airport" type="text" name = "airport" class="validate">
-                  <label for="last_name">Airport</label>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="text" placeholder="MM/DD/YYYY" class="datepicker" name = "depart">
+                        <label>Departure Date</label>
+                    </div>
                 </div>
-              </div>
-              
-              <!-- <div class="row"> -->
-                <div class="input-field col s6">
-                  <input id="flightNo" type="number" name = "flightNo" class="validate">
-                  <label for="flightNo">Flight No.</label>
-                </div>
-              <!-- </div> -->
-
-              <div class="row">
-                <div class="input-field col s6">
-                  <input placeholder="MM/DD/YYYY" id="departs" type="date" name = "departs" class="validate">
-                  <label for="email">Departure Date</label>
-                </div>
-              </div>
 
                 <div class="row">
                     <button class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
@@ -49,11 +69,20 @@
             </form>
           </div>
                 
-    
-    
-    
-    
-    
     </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+ 
+        const SelectAirline = document.querySelector('.selectAirline');
+        M.FormSelect.init(SelectAirline,{});
+
+        const SelectAirport = document.querySelector('.selectAirport');
+        M.FormSelect.init(SelectAirport,{});
+
+        const Calender = document.querySelector('.datepicker');
+        M.Datepicker.init(Calender,{});
+
+    </script>
 </body>
 </html>
