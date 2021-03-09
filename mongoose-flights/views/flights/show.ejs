@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
+<body>
+    <%- include('../partials/nav') %>
+    <section id="details">
+        <h4> Flight No.: <%= flight.flightNo %></h4>
+        <h5> Airport:</h5><%= flight.airport %>
+        <h5> Airline:</h5><%= flight.airline %>
+        <h5> Departure:</h5><%= flight.depart %>
+    </section>
+
+    <section id="destinations">
+        <h4>Destinations</h4>
+        <% if (flight.destinations.length) { %>
+            <table>
+                <thead>
+                  <tr>
+                    <th>Airport</th>
+                    <th>Arrival Date</th>
+                    <th>Arrival Time</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% flight.destinations.forEach(function(d) { %>
+                    <tr>
+                      <td><%= d.airport %></td>
+                      <td><%= d.arrival.toLocaleDateString()%></td>
+                      <td><%= d.arrival.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) %></td>
+                      <td>
+                        <form action="/flights/<%= flight.id %>/destinations/<%= d.id %>?_method=DELETE" method="POST">
+                            <button class="btn waves-effect waves-light red lighten-2 btn-small" type="submit">DELETE</button>
+                        </form>
+                    </td>
+                    </tr>
+                  <% }); %>
+                </tbody>
+              </table>
+            <% } else { %>
+              <h6>No Destinations to Show</h6>
+            <% } %>
+
+
+    </section>
+
+    <section>
+        <h4>Add a Destination</h4>
+        <form action="/flights/<%= flight.id %>/destinations" method="POST">
+    
+            <div class="row">
+                <form action="/flights" method="POST" class="col s12">
+    
+                    <div class="input-field col s4">
+                        <select name ="airport" class="selectAirport">
+                            <option value="DEN">DEN</option>
+                            <option value="AUS">AUS</option>
+                            <option value="DFW">DFW</option>
+                            <option value="LAX">LAX</option>
+                            <option value="SAN">SAN</option>
+                        </select>
+                        <label>Airport</label>
+                    </div>
+    
+                    <div class="input-field col s4">
+                     
+                            <input id="arrival" type="datetime-local" name = "arrival" class="validate">
+                            <label for="arrival" class="active">Arrival</label>
+               
+                    </div>
+    
+                    <div class="row col s4">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Add</button>
+                    </div>
+                </form>
+            </div>       
+        </form>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script>
+            const SelectAirport = document.querySelector('.selectAirport');
+            M.FormSelect.init(SelectAirport,{});
+        </script>
+    </section>
+
+</body>
+</html>

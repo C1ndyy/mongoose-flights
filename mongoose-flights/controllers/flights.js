@@ -37,9 +37,50 @@ async function create (req, res) {
     res.redirect('/flights')
 }
 
+async function show (req, res) {
+    try{
+        let flight = await Flight.findById(req.params.id);
+        flight.destinations.sort((a,b) => (a.arrival - b.arrival ))
+        res.render('flights/show', {flight: flight})
+    }
+    catch(err) {
+        res.send("there was an error")
+    }
+}
+
+async function addDestination (req, res) {
+    try {
+        let flight = await Flight.findById(req.params.id)
+        flight.destinations.push(req.body)
+        await flight.save()
+        return res.redirect('/flights/'+ flight.id)
+    }
+    catch (err) {
+        res.send("there was an error")
+    }
+}
+
+async function deleteDestination (req, res) {
+    try {
+        let flight = await Flight.findById(req.params.id)
+        let destination = flight.destinations.id(req.params.destinationId)
+        destination.remove()
+        await flight.save()
+        return res.redirect('/flights/'+ flight.id)
+    }
+    catch (err) {
+        res.send("there was an error")
+    }
+
+}
+
+
 
 module.exports = {
     index,
     new: newFlight,
     create,
+    show,
+    addDestination,
+    deleteDestination,
 }
