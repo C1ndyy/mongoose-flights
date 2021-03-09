@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
@@ -57,8 +56,8 @@
 
                 <div class="row">
                     <div class="input-field col s12">
-                        <input type="text" placeholder="MM/DD/YYYY" class="datepicker" name = "depart">
-                        <label>Departure Date</label>
+                        <input id="depart" type="datetime-local" value="<%= dt %>" name = "depart" class="validate">
+                        <label for="depart" class="active">Departure Date</label>
                     </div>
                 </div>
 
@@ -79,10 +78,7 @@
 
         const SelectAirport = document.querySelector('.selectAirport');
         M.FormSelect.init(SelectAirport,{});
-
-        const Calender = document.querySelector('.datepicker');
-        M.Datepicker.init(Calender,{});
-
+        
     </script>
 </body>
 </html>

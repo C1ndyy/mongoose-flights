@@ -7,6 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script defer src="/javascripts/app.js"></script>
 </head>
 <body>
     <nav>
@@ -19,29 +20,32 @@
         </div>
       </nav>
 
-      <h1>All Flights</h1>
-      <table>
-          <thead>
-              <tr>
-                  <th>Airline</th>
-                  <th>AirPort</th>
-                  <th>Flight No.</th>
-                  <th>Departure Date</th>
-              </tr>
-          </thead>
-          
-          <tbody>
-            <% flights.forEach(function(f) { %>
-                <tr>
-                    <td><%= f.airline %></td>
-                    <td><%= f.airport %></td>
-                    <td><%= f.flightNo %></td>
-                    <td><%= f.depart %></td>
-                </tr>
-            <% }); %>  
-          </tbody>
+    <h1>All Flights</h1>
+    <table id="all-flights">
+        <thead>
+            <tr>
+                <th>Airline</th>
+                <th>AirPort</th>
+                <th>Flight No.</th>
+                <th>Departure Date</th>
+                <th>Departure Time</th>
+            </tr>
+        </thead>
 
-      </table>
+        <tbody>
+        <% allFlights.forEach(function(f) { %>
+            <tr>
+                <td><%= f.airline %></td>
+                <td><%= f.airport %></td>
+                <td><%= f.flightNo %></td>
+                <td><%= f.depart.toLocaleDateString() %></td>
+                <td><%= f.depart.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) %></td>
+            </tr>
+        <% }); %>  
+        </tbody>
+
+    </table>
             
+
 </body>
 </html>     
