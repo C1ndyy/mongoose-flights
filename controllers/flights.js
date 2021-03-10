@@ -41,7 +41,13 @@ async function show (req, res) {
     try{
         let flight = await Flight.findById(req.params.id);
         flight.destinations.sort((a,b) => (a.arrival - b.arrival))
-        res.render('flights/show', {flight: flight})
+        let allDestinations = ['AUS', 'DFW', 'DEN', 'LAX', 'SAN'];
+        let remainingDestinations = allDestinations.filter( d => !(flight.destinations.map(dest => dest.airport).includes(d)));
+        remainingDestinations = remainingDestinations.filter(d => d !== flight.airport)
+        res.render('flights/show', {
+            flight: flight,
+            destinations: remainingDestinations,
+        })
     }
     catch(err) {
         res.send("there was an error")
@@ -53,7 +59,7 @@ async function addDestination (req, res) {
         let flight = await Flight.findById(req.params.id)
         flight.destinations.push(req.body)
         await flight.save()
-        return res.redirect('/flights/'+ flight.id, {})
+        return res.redirect('/flights/'+ flight.id)
     }
     catch (err) {
         res.send("there was an error")

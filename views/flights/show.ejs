@@ -56,30 +56,23 @@
         <form action="/flights/<%= flight.id %>/destinations" method="POST">
     
             <div class="row">
-                <form action="/flights" method="POST" class="col s12">
     
-                    <div class="input-field col s4">
-                        <select name ="airport" class="selectAirport">
-                            <option value="DEN">DEN</option>
-                            <option value="AUS">AUS</option>
-                            <option value="DFW">DFW</option>
-                            <option value="LAX">LAX</option>
-                            <option value="SAN">SAN</option>
-                        </select>
-                        <label>Airport</label>
-                    </div>
-    
-                    <div class="input-field col s4">
-                     
-                            <input id="arrival" type="datetime-local" name = "arrival" class="validate">
-                            <label for="arrival" class="active">Arrival</label>
-               
-                    </div>
-    
-                    <div class="row col s4">
-                        <button class="btn waves-effect waves-light" type="submit" name="action">Add</button>
-                    </div>
-                </form>
+                <div class="input-field col s4">
+                    <select name ="airport" class="selectAirport">
+                      <%- destinations.map(d => `<option value="${d}">${d}</option>`).join('') %>
+                    </select>
+                    <label>Airport</label>
+                </div>
+
+                <div class="input-field col s4">
+                        <input id="arrival" type="datetime-local" name = "arrival" class="validate">
+                        <label for="arrival" class="active">Arrival</label>
+                </div>
+
+                <div class="row col s4">
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Add</button>
+                </div>
+                
             </div>       
         </form>
     
