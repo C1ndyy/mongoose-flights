@@ -72,7 +72,7 @@
                 <div class="row col s4">
                     <button class="btn waves-effect waves-light" type="submit" name="action">Add</button>
                 </div>
-                
+
             </div>       
         </form>
     
@@ -82,6 +82,38 @@
             M.FormSelect.init(SelectAirport,{});
         </script>
     </section>
+
+
+    <section id="tickets">
+        <h4>Tickets</h4>
+        <a href="/flights/<%= flight._id %>/tickets/new">Add Ticket</a>
+        <% if (tickets.length) { %>
+            <table>
+                <thead>
+                  <tr>
+                    <th>Seat</th>
+                    <th>Price</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% tickets.forEach(function(t) { %>
+                    <tr>
+                      <td><%= t.seat %></td>
+                      <td><%= t.price%></td>
+                      <td>
+                        <form action="???" method="POST">
+                            <button class="btn waves-effect waves-light red lighten-2 btn-small" type="submit">DELETE</button>
+                        </form>
+                    </td>
+                    </tr>
+                  <% }); %>
+                </tbody>
+              </table>
+            <% } else { %>
+              <h6>No Tickets to Show</h6>
+            <% } %>
+
 
 </body>
 </html>

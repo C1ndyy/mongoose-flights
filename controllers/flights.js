@@ -1,5 +1,6 @@
 // require('../config/database')
 const Flight = require('../models/flight');
+const Ticket = require('../models/ticket');
 
 async function index (req, res) {
     try {
@@ -44,12 +45,15 @@ async function show (req, res) {
         let allDestinations = ['AUS', 'DFW', 'DEN', 'LAX', 'SAN'];
         let remainingDestinations = allDestinations.filter( d => !(flight.destinations.map(dest => dest.airport).includes(d)));
         remainingDestinations = remainingDestinations.filter(d => d !== flight.airport)
+        let tickets = await Ticket.find({flight: flight._id})
         res.render('flights/show', {
             flight: flight,
             destinations: remainingDestinations,
+            tickets: tickets,
         })
     }
     catch(err) {
+        console.log(err)
         res.send("there was an error")
     }
 }
